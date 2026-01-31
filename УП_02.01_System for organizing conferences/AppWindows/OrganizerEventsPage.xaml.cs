@@ -19,7 +19,7 @@ namespace УП_02._01_System_for_organizing_conferences.AppWindows
     /// <summary>
     /// Логика взаимодействия для OrganizerEventsPage.xaml
     /// </summary>
-    public partial class OrganizerEventsPage : Window
+    public partial class OrganizerEventsPage : Page
     {
         public OrganizerEventsPage()
         {

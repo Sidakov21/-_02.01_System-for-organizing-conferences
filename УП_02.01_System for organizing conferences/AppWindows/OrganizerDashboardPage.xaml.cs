@@ -19,7 +19,7 @@ namespace УП_02._01_System_for_organizing_conferences.AppWindows
     /// <summary>
     /// Логика взаимодействия для OrganizerDashboardPage.xaml
     /// </summary>
-    public partial class OrganizerDashboardPage : Window
+    public partial class OrganizerDashboardPage : Page
     {
         public OrganizerDashboardPage()
         {
@@ -51,9 +51,11 @@ namespace УП_02._01_System_for_organizing_conferences.AppWindows
                     var totalActivities = db.Активности.Count();
                     txtTotalActivities.Text = totalActivities.ToString();
 
-                    // Ближайшие мероприятия (в течение 30 дней)
+                    // Ближайшие мероприятия (в течение 30 дней) - ИСПРАВЛЕНО
+                    var today = DateTime.Today;
+                    var in30Days = today.AddDays(30);
                     var upcomingEvents = db.МероприятияИнформационнаяБезопасность
-                        .Count(e => e.дата >= DateTime.Today && e.дата <= DateTime.Today.AddDays(30));
+                        .Count(e => e.дата >= today && e.дата <= in30Days);
                     txtUpcomingEvents.Text = upcomingEvents.ToString();
                 }
             }

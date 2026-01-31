@@ -1,12 +1,11 @@
-﻿<Window x:Class="УП_02._01_System_for_organizing_conferences.AppWindows.OrganizerDashboardPage"
+﻿<Page x:Class="УП_02._01_System_for_organizing_conferences.AppWindows.OrganizerDashboardPage"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences.AppWindows"
         Title="Dashboard" 
-        FontFamily="Comic Sans MS"
-        Icon="/Ресурсы/icon.ico">
+        FontFamily="Comic Sans MS">
     
     <Grid Background="#ABCFCE">
         <ScrollViewer>
@@ -121,4 +120,4 @@
             </StackPanel>
         </ScrollViewer>
     </Grid>
-</Window>
+</Page>

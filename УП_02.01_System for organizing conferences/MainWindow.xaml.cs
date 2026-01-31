@@ -69,7 +69,7 @@ namespace УП_02._01_System_for_organizing_conferences
                 IQueryable<МероприятияИнформационнаяБезопасность> query = db.МероприятияИнформационнаяБезопасность
                     .Include(e => e.Города)
                     .Include(e => e.Направления)
-                    .Where(e => e.дата >= DateTime.Today)
+                    //.Where(e => e.дата >= DateTime.Today)
                     .OrderBy(e => e.дата);
 
                 // Применение фильтров

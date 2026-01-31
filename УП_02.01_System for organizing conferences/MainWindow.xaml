@@ -124,7 +124,7 @@
                                                 DisplayMemberBinding="{Binding событие}" 
                                                 Width="250"/>
                                 <GridViewColumn Header="Направление" 
-                                                DisplayMemberBinding="{Binding Направление.направление}" 
+                                                DisplayMemberBinding="{Binding Направления.направление}" 
                                                 Width="150"/>
                                 <GridViewColumn Header="Дата" 
                                                 DisplayMemberBinding="{Binding дата, StringFormat='dd.MM.yyyy'}" 
