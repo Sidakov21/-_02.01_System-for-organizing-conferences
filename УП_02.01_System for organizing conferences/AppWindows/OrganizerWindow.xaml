@@ -1,0 +1,70 @@
+﻿<Window x:Class="УП_02._01_System_for_organizing_conferences.AppWindows.OrganizerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences.AppWindows"
+        mc:Ignorable="d"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Icon="/Ресурсы/icon.ico">
+    <Grid Background="#ABCFCE">
+        <!-- Верхняя панель -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок и навигация -->
+        <Border Grid.Row="0" Background="#546F94" Padding="15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Информация о пользователе -->
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Border Background="White" CornerRadius="30" Width="60" Height="60">
+                        <Image x:Name="imgUserPhoto" Stretch="Uniform"/>
+                    </Border>
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="txtGreeting" Foreground="White" 
+                                   FontSize="16" FontWeight="Bold"/>
+                        <TextBlock x:Name="txtUserRole" Foreground="White" 
+                                   FontSize="12"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Навигация -->
+                <StackPanel Grid.Column="1" Orientation="Horizontal" 
+                            HorizontalAlignment="Center">
+                    <Button x:Name="btnDashboard" Content="Главная" 
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="BtnDashboard_Click"/>
+                    <Button x:Name="btnEvents" Content="Мероприятия" 
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="BtnEvents_Click"/>
+                    <Button x:Name="btnCreateEvent" Content="Создать мероприятие" 
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="BtnCreateEvent_Click"/>
+                    <Button x:Name="btnProfile" Content="Профиль" 
+                            Style="{StaticResource NavButtonStyle}"
+                            Click="BtnProfile_Click"/>
+                </StackPanel>
+
+                <!-- Кнопка выхода -->
+                <Button Grid.Column="2" Content="Выйти" 
+                        Background="White" Foreground="#546F94"
+                        Padding="15,8" FontWeight="Bold"
+                        Click="BtnLogout_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Основной контент -->
+        <Frame x:Name="mainFrame" Grid.Row="1" Margin="20" 
+               NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

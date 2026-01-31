@@ -1,0 +1,991 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DB_YP_OrgConfTESTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Активности">
+          <Key>
+            <PropertyRef Name="ID_Активности" />
+          </Key>
+          <Property Name="ID_Активности" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Активность" Type="nvarchar" MaxLength="255" />
+          <Property Name="Мероприятие_ID" Type="int" />
+          <Property Name="День" Type="int" />
+          <Property Name="Время начала" Type="datetime" />
+          <Property Name="Модератор_ID" Type="int" />
+          <Property Name="АктивностиЖюри_ID" Type="int" />
+          <Property Name="описание" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="АктивностиЖюри">
+          <Key>
+            <PropertyRef Name="ID_АктивностьЖюри" />
+          </Key>
+          <Property Name="ID_АктивностьЖюри" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Активность" Type="nvarchar" MaxLength="255" />
+          <Property Name="Жюри_1" Type="int" />
+          <Property Name="Жюри_2" Type="int" />
+          <Property Name="Жюри_3" Type="int" />
+          <Property Name="Жюри_4" Type="int" />
+          <Property Name="Жюри_5" Type="int" />
+        </EntityType>
+        <EntityType Name="Города">
+          <Key>
+            <PropertyRef Name="ID_город" />
+          </Key>
+          <Property Name="ID_город" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="город" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Мероприятия">
+          <Key>
+            <PropertyRef Name="ID_мероприятия" />
+          </Key>
+          <Property Name="ID_мероприятия" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="мероприятие" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="МероприятияИнформационнаяБезопасность">
+          <Key>
+            <PropertyRef Name="ID_событие" />
+          </Key>
+          <Property Name="ID_событие" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="событие" Type="nvarchar" MaxLength="255" />
+          <Property Name="дата" Type="date" />
+          <Property Name="дни" Type="int" />
+          <Property Name="город" Type="int" />
+          <Property Name="мероприятия_ID" Type="int" />
+          <Property Name="описание" Type="nvarchar(max)" />
+          <Property Name="логотип" Type="nvarchar" MaxLength="500" />
+          <Property Name="направление_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Направления">
+          <Key>
+            <PropertyRef Name="ID_направление" />
+          </Key>
+          <Property Name="ID_направление" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="направление" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ID_пользователи" />
+          </Key>
+          <Property Name="ID_пользователи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="роли_ID" Type="int" />
+          <Property Name="фио" Type="nvarchar" MaxLength="255" />
+          <Property Name="почта" Type="nvarchar" MaxLength="255" />
+          <Property Name="дата рождения" Type="datetime" />
+          <Property Name="страны_ID" Type="int" />
+          <Property Name="телефон" Type="nvarchar" MaxLength="255" />
+          <Property Name="пароль" Type="nvarchar" MaxLength="255" />
+          <Property Name="фото" Type="nvarchar" MaxLength="255" />
+          <Property Name="пол" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="ID_Роли" />
+          </Key>
+          <Property Name="ID_Роли" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Роль" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="РолиПользователей">
+          <Key>
+            <PropertyRef Name="ID_РолиПользователи" />
+          </Key>
+          <Property Name="ID_РолиПользователи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="пользователи_ID" Type="int" />
+          <Property Name="роли_ID" Type="int" />
+          <Property Name="направление_ID" Type="int" />
+          <Property Name="мероприятие_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Страны">
+          <Key>
+            <PropertyRef Name="ID_Страны" />
+          </Key>
+          <Property Name="ID_Страны" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название страны" Type="nvarchar" MaxLength="255" />
+          <Property Name="Английское название" Type="nvarchar" MaxLength="255" />
+          <Property Name="Код" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Активности_АктивностиЖюри">
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="АктивностиЖюри">
+              <PropertyRef Name="ID_АктивностьЖюри" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="АктивностиЖюри_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Активности_МероприятияИнформационнаяБезопасность">
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="ID_событие" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="Мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Активности_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="Модератор_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри1">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри2">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри3">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри4">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри5">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_5" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Мероприятия_Направления">
+          <End Role="Направления" Type="Self.Направления" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Направления">
+              <PropertyRef Name="ID_направление" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="направление_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_МероприятияИнформационнаяБезопасность_Города">
+          <End Role="Города" Type="Self.Города" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города">
+              <PropertyRef Name="ID_город" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="город" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_МероприятияИнформационнаяБезопасность_Мероприятия">
+          <End Role="Мероприятия" Type="Self.Мероприятия" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Мероприятия">
+              <PropertyRef Name="ID_мероприятия" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="мероприятия_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="ID_Роли" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="роли_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Страны">
+          <End Role="Страны" Type="Self.Страны" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Страны">
+              <PropertyRef Name="ID_Страны" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="страны_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Мероприятия">
+          <End Role="Мероприятия" Type="Self.Мероприятия" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Мероприятия">
+              <PropertyRef Name="ID_мероприятия" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_МероприятияИБ">
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="ID_событие" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Направления">
+          <End Role="Направления" Type="Self.Направления" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Направления">
+              <PropertyRef Name="ID_направление" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="направление_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="пользователи_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="ID_Роли" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="роли_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище DB_YP_OrgConfTESTModelContainer">
+          <EntitySet Name="Активности" EntityType="Self.Активности" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="АктивностиЖюри" EntityType="Self.АктивностиЖюри" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Города" EntityType="Self.Города" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Мероприятия" EntityType="Self.Мероприятия" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="МероприятияИнформационнаяБезопасность" EntityType="Self.МероприятияИнформационнаяБезопасность" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Направления" EntityType="Self.Направления" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="РолиПользователей" EntityType="Self.РолиПользователей" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Страны" EntityType="Self.Страны" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Активности_АктивностиЖюри" Association="Self.FK_Активности_АктивностиЖюри">
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Активности_МероприятияИнформационнаяБезопасность" Association="Self.FK_Активности_МероприятияИнформационнаяБезопасность">
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Активности_Пользователи" Association="Self.FK_Активности_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри1" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри1">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри2" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри2">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри3" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри3">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри4" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри4">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри5" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри5">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Мероприятия_Направления" Association="Self.FK_Мероприятия_Направления">
+            <End Role="Направления" EntitySet="Направления" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МероприятияИнформационнаяБезопасность_Города" Association="Self.FK_МероприятияИнформационнаяБезопасность_Города">
+            <End Role="Города" EntitySet="Города" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МероприятияИнформационнаяБезопасность_Мероприятия" Association="Self.FK_МероприятияИнформационнаяБезопасность_Мероприятия">
+            <End Role="Мероприятия" EntitySet="Мероприятия" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Страны" Association="Self.FK_Пользователи_Страны">
+            <End Role="Страны" EntitySet="Страны" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Мероприятия" Association="Self.FK_РолиПользователей_Мероприятия">
+            <End Role="Мероприятия" EntitySet="Мероприятия" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_МероприятияИБ" Association="Self.FK_РолиПользователей_МероприятияИБ">
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Направления" Association="Self.FK_РолиПользователей_Направления">
+            <End Role="Направления" EntitySet="Направления" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Пользователи" Association="Self.FK_РолиПользователей_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Роли" Association="Self.FK_РолиПользователей_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_YP_OrgConfTESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Активности">
+          <Key>
+            <PropertyRef Name="ID_Активности" />
+          </Key>
+          <Property Name="ID_Активности" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Активность" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Мероприятие_ID" Type="Int32" />
+          <Property Name="День" Type="Int32" />
+          <Property Name="Время_начала" Type="DateTime" Precision="3" />
+          <Property Name="Модератор_ID" Type="Int32" />
+          <Property Name="АктивностиЖюри_ID" Type="Int32" />
+          <Property Name="описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="АктивностиЖюри" Relationship="Self.FK_Активности_АктивностиЖюри" FromRole="Активности" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="МероприятияИнформационнаяБезопасность" Relationship="Self.FK_Активности_МероприятияИнформационнаяБезопасность" FromRole="Активности" ToRole="МероприятияИнформационнаяБезопасность" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Активности_Пользователи" FromRole="Активности" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="АктивностиЖюри">
+          <Key>
+            <PropertyRef Name="ID_АктивностьЖюри" />
+          </Key>
+          <Property Name="ID_АктивностьЖюри" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Активность" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Жюри_1" Type="Int32" />
+          <Property Name="Жюри_2" Type="Int32" />
+          <Property Name="Жюри_3" Type="Int32" />
+          <Property Name="Жюри_4" Type="Int32" />
+          <Property Name="Жюри_5" Type="Int32" />
+          <NavigationProperty Name="Активности" Relationship="Self.FK_Активности_АктивностиЖюри" FromRole="АктивностиЖюри" ToRole="Активности" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри1" FromRole="АктивностиЖюри" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи1" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри2" FromRole="АктивностиЖюри" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи2" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри3" FromRole="АктивностиЖюри" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи3" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри4" FromRole="АктивностиЖюри" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи4" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри5" FromRole="АктивностиЖюри" ToRole="Пользователи" />
+        </EntityType>
+        <EntityType Name="Города">
+          <Key>
+            <PropertyRef Name="ID_город" />
+          </Key>
+          <Property Name="ID_город" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="город" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="МероприятияИнформационнаяБезопасность" Relationship="Self.FK_МероприятияИнформационнаяБезопасность_Города" FromRole="Города" ToRole="МероприятияИнформационнаяБезопасность" />
+        </EntityType>
+        <EntityType Name="Мероприятия">
+          <Key>
+            <PropertyRef Name="ID_мероприятия" />
+          </Key>
+          <Property Name="ID_мероприятия" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="мероприятие" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="МероприятияИнформационнаяБезопасность" Relationship="Self.FK_МероприятияИнформационнаяБезопасность_Мероприятия" FromRole="Мероприятия" ToRole="МероприятияИнформационнаяБезопасность" />
+          <NavigationProperty Name="РолиПользователей" Relationship="Self.FK_РолиПользователей_Мероприятия" FromRole="Мероприятия" ToRole="РолиПользователей" />
+        </EntityType>
+        <EntityType Name="МероприятияИнформационнаяБезопасность">
+          <Key>
+            <PropertyRef Name="ID_событие" />
+          </Key>
+          <Property Name="ID_событие" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="событие" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="дата" Type="DateTime" Precision="0" />
+          <Property Name="дни" Type="Int32" />
+          <Property Name="город" Type="Int32" />
+          <Property Name="мероприятия_ID" Type="Int32" />
+          <Property Name="описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="логотип" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="направление_ID" Type="Int32" />
+          <NavigationProperty Name="Активности" Relationship="Self.FK_Активности_МероприятияИнформационнаяБезопасность" FromRole="МероприятияИнформационнаяБезопасность" ToRole="Активности" />
+          <NavigationProperty Name="Города" Relationship="Self.FK_МероприятияИнформационнаяБезопасность_Города" FromRole="МероприятияИнформационнаяБезопасность" ToRole="Города" />
+          <NavigationProperty Name="Мероприятия" Relationship="Self.FK_МероприятияИнформационнаяБезопасность_Мероприятия" FromRole="МероприятияИнформационнаяБезопасность" ToRole="Мероприятия" />
+          <NavigationProperty Name="Направления" Relationship="Self.FK_Мероприятия_Направления" FromRole="МероприятияИнформационнаяБезопасность" ToRole="Направления" />
+          <NavigationProperty Name="РолиПользователей" Relationship="Self.FK_РолиПользователей_МероприятияИБ" FromRole="МероприятияИнформационнаяБезопасность" ToRole="РолиПользователей" />
+        </EntityType>
+        <EntityType Name="Направления">
+          <Key>
+            <PropertyRef Name="ID_направление" />
+          </Key>
+          <Property Name="ID_направление" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="направление" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="МероприятияИнформационнаяБезопасность" Relationship="Self.FK_Мероприятия_Направления" FromRole="Направления" ToRole="МероприятияИнформационнаяБезопасность" />
+          <NavigationProperty Name="РолиПользователей" Relationship="Self.FK_РолиПользователей_Направления" FromRole="Направления" ToRole="РолиПользователей" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ID_пользователи" />
+          </Key>
+          <Property Name="ID_пользователи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="роли_ID" Type="Int32" />
+          <Property Name="фио" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="почта" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="дата_рождения" Type="DateTime" Precision="3" />
+          <Property Name="страны_ID" Type="Int32" />
+          <Property Name="телефон" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="пароль" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="фото" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="пол" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Активности" Relationship="Self.FK_Активности_Пользователи" FromRole="Пользователи" ToRole="Активности" />
+          <NavigationProperty Name="АктивностиЖюри" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри1" FromRole="Пользователи" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="АктивностиЖюри1" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри2" FromRole="Пользователи" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="АктивностиЖюри2" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри3" FromRole="Пользователи" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="АктивностиЖюри3" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри4" FromRole="Пользователи" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="АктивностиЖюри4" Relationship="Self.FK_АктивностиЖюри_Пользователи_Жюри5" FromRole="Пользователи" ToRole="АктивностиЖюри" />
+          <NavigationProperty Name="Роли" Relationship="Self.FK_Пользователи_Роли" FromRole="Пользователи" ToRole="Роли" />
+          <NavigationProperty Name="Страны" Relationship="Self.FK_Пользователи_Страны" FromRole="Пользователи" ToRole="Страны" />
+          <NavigationProperty Name="РолиПользователей" Relationship="Self.FK_РолиПользователей_Пользователи" FromRole="Пользователи" ToRole="РолиПользователей" />
+        </EntityType>
+        <EntityType Name="Роли">
+          <Key>
+            <PropertyRef Name="ID_Роли" />
+          </Key>
+          <Property Name="ID_Роли" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Роль" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Роли" FromRole="Роли" ToRole="Пользователи" />
+          <NavigationProperty Name="РолиПользователей" Relationship="Self.FK_РолиПользователей_Роли" FromRole="Роли" ToRole="РолиПользователей" />
+        </EntityType>
+        <EntityType Name="РолиПользователей">
+          <Key>
+            <PropertyRef Name="ID_РолиПользователи" />
+          </Key>
+          <Property Name="ID_РолиПользователи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="пользователи_ID" Type="Int32" />
+          <Property Name="роли_ID" Type="Int32" />
+          <Property Name="направление_ID" Type="Int32" />
+          <Property Name="мероприятие_ID" Type="Int32" />
+          <NavigationProperty Name="Мероприятия" Relationship="Self.FK_РолиПользователей_Мероприятия" FromRole="РолиПользователей" ToRole="Мероприятия" />
+          <NavigationProperty Name="МероприятияИнформационнаяБезопасность" Relationship="Self.FK_РолиПользователей_МероприятияИБ" FromRole="РолиПользователей" ToRole="МероприятияИнформационнаяБезопасность" />
+          <NavigationProperty Name="Направления" Relationship="Self.FK_РолиПользователей_Направления" FromRole="РолиПользователей" ToRole="Направления" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_РолиПользователей_Пользователи" FromRole="РолиПользователей" ToRole="Пользователи" />
+          <NavigationProperty Name="Роли" Relationship="Self.FK_РолиПользователей_Роли" FromRole="РолиПользователей" ToRole="Роли" />
+        </EntityType>
+        <EntityType Name="Страны">
+          <Key>
+            <PropertyRef Name="ID_Страны" />
+          </Key>
+          <Property Name="ID_Страны" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название_страны" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Английское_название" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Код" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Пользователи_Страны" FromRole="Страны" ToRole="Пользователи" />
+        </EntityType>
+        <Association Name="FK_Активности_АктивностиЖюри">
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="АктивностиЖюри">
+              <PropertyRef Name="ID_АктивностьЖюри" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="АктивностиЖюри_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Активности_МероприятияИнформационнаяБезопасность">
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="ID_событие" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="Мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Активности_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Активности" Type="Self.Активности" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="Активности">
+              <PropertyRef Name="Модератор_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри1">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри2">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри3">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_3" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри4">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_4" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АктивностиЖюри_Пользователи_Жюри5">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="АктивностиЖюри" Type="Self.АктивностиЖюри" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="АктивностиЖюри">
+              <PropertyRef Name="Жюри_5" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_МероприятияИнформационнаяБезопасность_Города">
+          <End Role="Города" Type="Self.Города" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Города">
+              <PropertyRef Name="ID_город" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="город" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_МероприятияИнформационнаяБезопасность_Мероприятия">
+          <End Role="Мероприятия" Type="Self.Мероприятия" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Мероприятия">
+              <PropertyRef Name="ID_мероприятия" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="мероприятия_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Мероприятия">
+          <End Role="Мероприятия" Type="Self.Мероприятия" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Мероприятия">
+              <PropertyRef Name="ID_мероприятия" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Мероприятия_Направления">
+          <End Role="Направления" Type="Self.Направления" Multiplicity="0..1" />
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Направления">
+              <PropertyRef Name="ID_направление" />
+            </Principal>
+            <Dependent Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="направление_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_МероприятияИБ">
+          <End Role="МероприятияИнформационнаяБезопасность" Type="Self.МероприятияИнформационнаяБезопасность" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МероприятияИнформационнаяБезопасность">
+              <PropertyRef Name="ID_событие" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="мероприятие_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Направления">
+          <End Role="Направления" Type="Self.Направления" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Направления">
+              <PropertyRef Name="ID_направление" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="направление_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="ID_Роли" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="роли_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_Страны">
+          <End Role="Страны" Type="Self.Страны" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Страны">
+              <PropertyRef Name="ID_Страны" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="страны_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Пользователи">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ID_пользователи" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="пользователи_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РолиПользователей_Роли">
+          <End Role="Роли" Type="Self.Роли" Multiplicity="0..1" />
+          <End Role="РолиПользователей" Type="Self.РолиПользователей" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Роли">
+              <PropertyRef Name="ID_Роли" />
+            </Principal>
+            <Dependent Role="РолиПользователей">
+              <PropertyRef Name="роли_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_YP_OrgConfTESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Активности" EntityType="Self.Активности" />
+          <EntitySet Name="АктивностиЖюри" EntityType="Self.АктивностиЖюри" />
+          <EntitySet Name="Города" EntityType="Self.Города" />
+          <EntitySet Name="Мероприятия" EntityType="Self.Мероприятия" />
+          <EntitySet Name="МероприятияИнформационнаяБезопасность" EntityType="Self.МероприятияИнформационнаяБезопасность" />
+          <EntitySet Name="Направления" EntityType="Self.Направления" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+          <EntitySet Name="Роли" EntityType="Self.Роли" />
+          <EntitySet Name="РолиПользователей" EntityType="Self.РолиПользователей" />
+          <EntitySet Name="Страны" EntityType="Self.Страны" />
+          <AssociationSet Name="FK_Активности_АктивностиЖюри" Association="Self.FK_Активности_АктивностиЖюри">
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Активности_МероприятияИнформационнаяБезопасность" Association="Self.FK_Активности_МероприятияИнформационнаяБезопасность">
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Активности_Пользователи" Association="Self.FK_Активности_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Активности" EntitySet="Активности" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри1" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри1">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри2" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри2">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри3" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри3">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри4" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри4">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АктивностиЖюри_Пользователи_Жюри5" Association="Self.FK_АктивностиЖюри_Пользователи_Жюри5">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="АктивностиЖюри" EntitySet="АктивностиЖюри" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МероприятияИнформационнаяБезопасность_Города" Association="Self.FK_МероприятияИнформационнаяБезопасность_Города">
+            <End Role="Города" EntitySet="Города" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МероприятияИнформационнаяБезопасность_Мероприятия" Association="Self.FK_МероприятияИнформационнаяБезопасность_Мероприятия">
+            <End Role="Мероприятия" EntitySet="Мероприятия" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Мероприятия" Association="Self.FK_РолиПользователей_Мероприятия">
+            <End Role="Мероприятия" EntitySet="Мероприятия" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Мероприятия_Направления" Association="Self.FK_Мероприятия_Направления">
+            <End Role="Направления" EntitySet="Направления" />
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_МероприятияИБ" Association="Self.FK_РолиПользователей_МероприятияИБ">
+            <End Role="МероприятияИнформационнаяБезопасность" EntitySet="МероприятияИнформационнаяБезопасность" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Направления" Association="Self.FK_РолиПользователей_Направления">
+            <End Role="Направления" EntitySet="Направления" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Роли" Association="Self.FK_Пользователи_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_Страны" Association="Self.FK_Пользователи_Страны">
+            <End Role="Страны" EntitySet="Страны" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Пользователи" Association="Self.FK_РолиПользователей_Пользователи">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РолиПользователей_Роли" Association="Self.FK_РолиПользователей_Роли">
+            <End Role="Роли" EntitySet="Роли" />
+            <End Role="РолиПользователей" EntitySet="РолиПользователей" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DB_YP_OrgConfTESTModelContainer" CdmEntityContainer="DB_YP_OrgConfTESTEntities">
+          <EntitySetMapping Name="Активности">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Активности">
+              <MappingFragment StoreEntitySet="Активности">
+                <ScalarProperty Name="ID_Активности" ColumnName="ID_Активности" />
+                <ScalarProperty Name="Активность" ColumnName="Активность" />
+                <ScalarProperty Name="Мероприятие_ID" ColumnName="Мероприятие_ID" />
+                <ScalarProperty Name="День" ColumnName="День" />
+                <ScalarProperty Name="Время_начала" ColumnName="Время начала" />
+                <ScalarProperty Name="Модератор_ID" ColumnName="Модератор_ID" />
+                <ScalarProperty Name="АктивностиЖюри_ID" ColumnName="АктивностиЖюри_ID" />
+                <ScalarProperty Name="описание" ColumnName="описание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="АктивностиЖюри">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.АктивностиЖюри">
+              <MappingFragment StoreEntitySet="АктивностиЖюри">
+                <ScalarProperty Name="ID_АктивностьЖюри" ColumnName="ID_АктивностьЖюри" />
+                <ScalarProperty Name="Активность" ColumnName="Активность" />
+                <ScalarProperty Name="Жюри_1" ColumnName="Жюри_1" />
+                <ScalarProperty Name="Жюри_2" ColumnName="Жюри_2" />
+                <ScalarProperty Name="Жюри_3" ColumnName="Жюри_3" />
+                <ScalarProperty Name="Жюри_4" ColumnName="Жюри_4" />
+                <ScalarProperty Name="Жюри_5" ColumnName="Жюри_5" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Города">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Города">
+              <MappingFragment StoreEntitySet="Города">
+                <ScalarProperty Name="ID_город" ColumnName="ID_город" />
+                <ScalarProperty Name="город" ColumnName="город" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Мероприятия">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Мероприятия">
+              <MappingFragment StoreEntitySet="Мероприятия">
+                <ScalarProperty Name="ID_мероприятия" ColumnName="ID_мероприятия" />
+                <ScalarProperty Name="мероприятие" ColumnName="мероприятие" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="МероприятияИнформационнаяБезопасность">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.МероприятияИнформационнаяБезопасность">
+              <MappingFragment StoreEntitySet="МероприятияИнформационнаяБезопасность">
+                <ScalarProperty Name="ID_событие" ColumnName="ID_событие" />
+                <ScalarProperty Name="событие" ColumnName="событие" />
+                <ScalarProperty Name="дата" ColumnName="дата" />
+                <ScalarProperty Name="дни" ColumnName="дни" />
+                <ScalarProperty Name="город" ColumnName="город" />
+                <ScalarProperty Name="мероприятия_ID" ColumnName="мероприятия_ID" />
+                <ScalarProperty Name="описание" ColumnName="описание" />
+                <ScalarProperty Name="логотип" ColumnName="логотип" />
+                <ScalarProperty Name="направление_ID" ColumnName="направление_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Направления">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Направления">
+              <MappingFragment StoreEntitySet="Направления">
+                <ScalarProperty Name="ID_направление" ColumnName="ID_направление" />
+                <ScalarProperty Name="направление" ColumnName="направление" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователи">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Пользователи">
+              <MappingFragment StoreEntitySet="Пользователи">
+                <ScalarProperty Name="ID_пользователи" ColumnName="ID_пользователи" />
+                <ScalarProperty Name="роли_ID" ColumnName="роли_ID" />
+                <ScalarProperty Name="фио" ColumnName="фио" />
+                <ScalarProperty Name="почта" ColumnName="почта" />
+                <ScalarProperty Name="дата_рождения" ColumnName="дата рождения" />
+                <ScalarProperty Name="страны_ID" ColumnName="страны_ID" />
+                <ScalarProperty Name="телефон" ColumnName="телефон" />
+                <ScalarProperty Name="пароль" ColumnName="пароль" />
+                <ScalarProperty Name="фото" ColumnName="фото" />
+                <ScalarProperty Name="пол" ColumnName="пол" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Роли">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Роли">
+              <MappingFragment StoreEntitySet="Роли">
+                <ScalarProperty Name="ID_Роли" ColumnName="ID_Роли" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="РолиПользователей">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.РолиПользователей">
+              <MappingFragment StoreEntitySet="РолиПользователей">
+                <ScalarProperty Name="ID_РолиПользователи" ColumnName="ID_РолиПользователи" />
+                <ScalarProperty Name="пользователи_ID" ColumnName="пользователи_ID" />
+                <ScalarProperty Name="роли_ID" ColumnName="роли_ID" />
+                <ScalarProperty Name="направление_ID" ColumnName="направление_ID" />
+                <ScalarProperty Name="мероприятие_ID" ColumnName="мероприятие_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Страны">
+            <EntityTypeMapping TypeName="DB_YP_OrgConfTESTModel.Страны">
+              <MappingFragment StoreEntitySet="Страны">
+                <ScalarProperty Name="ID_Страны" ColumnName="ID_Страны" />
+                <ScalarProperty Name="Название_страны" ColumnName="Название страны" />
+                <ScalarProperty Name="Английское_название" ColumnName="Английское название" />
+                <ScalarProperty Name="Код" ColumnName="Код" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

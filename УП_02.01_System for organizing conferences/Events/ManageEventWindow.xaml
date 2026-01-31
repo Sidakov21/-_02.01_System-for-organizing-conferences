@@ -1,0 +1,257 @@
+﻿<Window x:Class="УП_02._01_System_for_organizing_conferences.Events.ManageEventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences.Events"
+        mc:Ignorable="d"
+        Title="Управление мероприятием" Height="800" Width="1200"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterOwner"
+        Loaded="Window_Loaded"
+        Icon="/Ресурсы/icon.ico">
+    <Grid Background="#ABCFCE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок мероприятия -->
+        <Border Grid.Row="0" Background="#546F94" Padding="20" Margin="0,0,0,20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Image x:Name="imgEventLogo" Source="/Resources/EventLogo.png" 
+                       Height="60" Width="60" Margin="0,0,20,0"/>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="txtEventTitle" Foreground="White" 
+                               FontSize="20" FontWeight="Bold"/>
+                    <TextBlock x:Name="txtEventDetails" Foreground="White" 
+                               FontSize="14"/>
+                </StackPanel>
+
+                <Button Grid.Column="2" Content="Закрыть" 
+                        Background="White" Foreground="#546F94"
+                        Padding="15,8" FontWeight="Bold"
+                        Click="BtnClose_Click"/>
+            </Grid>
+        </Border>
+
+        <!-- Вкладки -->
+        <TabControl Grid.Row="1" Background="White" 
+                    BorderThickness="0" Margin="20,0">
+            <TabItem Header="Активности">
+                <Grid Background="White" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Панель управления активностями -->
+                    <Border Grid.Row="0" Background="#F5F5F5" CornerRadius="5" 
+                            Padding="15" Margin="0,0,0,10">
+                        <StackPanel>
+                            <TextBlock Text="Управление активностями" 
+                                       FontSize="16" FontWeight="Bold" 
+                                       Foreground="#546F94" Margin="0,0,0,10"/>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Поиск:" VerticalAlignment="Center" 
+                                               Margin="0,0,10,0"/>
+                                    <TextBox x:Name="txtActivitySearch" Width="300" 
+                                             TextChanged="TxtActivitySearch_TextChanged"/>
+
+                                    <TextBlock Text="Фильтр по дню:" VerticalAlignment="Center" 
+                                               Margin="20,0,10,0"/>
+                                    <ComboBox x:Name="cmbDayFilter" Width="150" 
+                                              SelectionChanged="CmbDayFilter_SelectionChanged">
+                                        <ComboBoxItem Content="Все дни"/>
+                                        <ComboBoxItem Content="День 1"/>
+                                        <ComboBoxItem Content="День 2"/>
+                                        <ComboBoxItem Content="День 3"/>
+                                    </ComboBox>
+                                </StackPanel>
+
+                                <Button Grid.Column="1" Content="Добавить активность" 
+                                        Background="#546F94" Foreground="White"
+                                        Padding="15,8" FontWeight="Bold"
+                                        Click="BtnAddActivity_Click"/>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Список активностей -->
+                    <ListView x:Name="lvActivities" Grid.Row="1">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="День" 
+                                                DisplayMemberBinding="{Binding День}" 
+                                                Width="80"/>
+                                <GridViewColumn Header="Время" 
+                                                DisplayMemberBinding="{Binding Время_начала, StringFormat='HH:mm'}" 
+                                                Width="100"/>
+                                <GridViewColumn Header="Активность" 
+                                                DisplayMemberBinding="{Binding Активность}" 
+                                                Width="250"/>
+                                <GridViewColumn Header="Модератор" 
+                                                DisplayMemberBinding="{Binding Пользователи.фио}" 
+                                                Width="200"/>
+                                <GridViewColumn Header="Жюри" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} {2}">
+                                                        <Binding Path="АктивностиЖюри.Жюри1_ID"/>
+                                                        <Binding Path="АктивностиЖюри.Жюри2_ID"/>
+                                                        <Binding Path="АктивностиЖюри.Жюри3_ID"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Действия" Width="200">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="✎" 
+                                                        Background="#546F94" 
+                                                        Foreground="White"
+                                                        Width="30" Height="30" Margin="0,0,5,0"
+                                                        Tag="{Binding ID_Активности}"
+                                                        Click="BtnEditActivity_Click"/>
+                                                <Button Content="Назначить жюри" 
+                                                        Background="#546F94" 
+                                                        Foreground="White"
+                                                        Padding="10,5" Margin="0,0,5,0"
+                                                        Tag="{Binding ID_Активности}"
+                                                        Click="BtnAssignJury_Click"/>
+                                                <Button Content="🗑" 
+                                                        Background="Red" 
+                                                        Foreground="White"
+                                                        Width="30" Height="30"
+                                                        Tag="{Binding ID_Активности}"
+                                                        Click="BtnDeleteActivity_Click"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Участники">
+                <Grid Background="White" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Участники мероприятия" 
+                               FontSize="16" FontWeight="Bold" 
+                               Foreground="#546F94" Margin="0,0,0,20"/>
+
+                    <DataGrid x:Name="dgParticipants" Grid.Row="1" 
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ФИО" Binding="{Binding фио}" Width="200"/>
+                            <DataGridTextColumn Header="Email" Binding="{Binding почта}" Width="200"/>
+                            <DataGridTextColumn Header="Телефон" Binding="{Binding телефон}" Width="150"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding статус}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Информация">
+                <ScrollViewer>
+                    <StackPanel Margin="10">
+                        <Border Background="#F5F5F5" CornerRadius="5" Padding="15" Margin="0,0,0,20">
+                            <StackPanel>
+                                <TextBlock Text="Основная информация" 
+                                           FontSize="16" FontWeight="Bold" 
+                                           Foreground="#546F94" Margin="0,0,0,10"/>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Название:" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtInfoName" Grid.Column="1"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Дата:" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtInfoDate" Grid.Column="1"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Город:" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtInfoCity" Grid.Column="1"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="3" Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Длительность:" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtInfoDuration" Grid.Column="1"/>
+                                    </Grid>
+
+                                    <Grid Grid.Row="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="Описание:" FontWeight="Bold"/>
+                                        <TextBlock x:Name="txtInfoDescription" Grid.Column="1" 
+                                                   TextWrapping="Wrap"/>
+                                    </Grid>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <Button x:Name="btnEditEventInfo" Content="Редактировать информацию" 
+                                Background="#546F94" Foreground="White"
+                                Padding="15,8" HorizontalAlignment="Left"
+                                Click="BtnEditEventInfo_Click"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

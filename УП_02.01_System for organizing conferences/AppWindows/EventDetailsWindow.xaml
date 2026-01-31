@@ -1,0 +1,113 @@
+﻿<Window x:Class="УП_02._01_System_for_organizing_conferences.AppWindows.EventDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences.AppWindows"
+        mc:Ignorable="d"
+        Title="Детали мероприятия" Height="600" Width="800"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterOwner"
+        Icon="/Ресурсы/icon.ico">
+    
+    <Grid Background="#ABCFCE">
+        <Border Background="White" CornerRadius="10" Margin="20" Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+                    <Image x:Name="imgLogo" Height="60" Width="60" 
+                           Margin="0,0,20,0" Stretch="Uniform"/>
+                    <StackPanel>
+                        <TextBlock x:Name="txtEventTitle" FontSize="20" 
+                                   FontWeight="Bold" Foreground="#546F94"/>
+                        <TextBlock x:Name="txtEventDate" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Детали -->
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Основная информация:" 
+                               FontWeight="Bold" Margin="0,0,0,10"/>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Город:" 
+                                   FontWeight="Bold" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtCity" Grid.Column="1"/>
+
+                        <TextBlock Grid.Column="2" Text="Направление:" 
+                                   FontWeight="Bold" Margin="20,0,10,0"/>
+                        <TextBlock x:Name="txtDirection" Grid.Column="3"/>
+                    </Grid>
+
+                    <Grid Grid.Row="2" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Длительность:" 
+                                   FontWeight="Bold" Margin="0,0,10,0"/>
+                        <TextBlock x:Name="txtDuration" Grid.Column="1"/>
+
+                        <TextBlock Grid.Column="2" Text="Тип мероприятия:" 
+                                   FontWeight="Bold" Margin="20,0,10,0"/>
+                        <TextBlock x:Name="txtEventType" Grid.Column="3"/>
+                    </Grid>
+
+                    <TextBlock Grid.Row="3" Text="Активности:" 
+                               FontWeight="Bold" Margin="0,20,0,10"/>
+
+                    <ListView x:Name="lvActivities" Grid.Row="4">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Активность" 
+                                                DisplayMemberBinding="{Binding Активность}" 
+                                                Width="200"/>
+                                <GridViewColumn Header="День" 
+                                                DisplayMemberBinding="{Binding День}" 
+                                                Width="50"/>
+                                <GridViewColumn Header="Время" 
+                                                DisplayMemberBinding="{Binding Время_начала, StringFormat='HH:mm'}" 
+                                                Width="80"/>
+                                <GridViewColumn Header="Модератор" 
+                                                DisplayMemberBinding="{Binding Пользователи.фио}" 
+                                                Width="150"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+
+                <!-- Кнопки -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                            HorizontalAlignment="Right" Margin="0,20,0,0">
+                    <Button Content="Закрыть" Background="#546F94" 
+                            Foreground="White" Padding="15,8"
+                            Click="BtnClose_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

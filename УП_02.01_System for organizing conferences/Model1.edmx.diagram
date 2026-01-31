@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f172fd490f44e48ba303586c62f7485" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Активности" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.АктивностиЖюри" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Города" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Мероприятия" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.МероприятияИнформационнаяБезопасность" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Направления" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Пользователи" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Роли" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.РолиПользователей" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_YP_OrgConfTESTModel.Страны" Width="1.5" PointX="0.75" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Активности_АктивностиЖюри" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Активности_МероприятияИнформационнаяБезопасность" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Активности_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_АктивностиЖюри_Пользователи_Жюри1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_АктивностиЖюри_Пользователи_Жюри2" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_АктивностиЖюри_Пользователи_Жюри3" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_АктивностиЖюри_Пользователи_Жюри4" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_АктивностиЖюри_Пользователи_Жюри5" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_МероприятияИнформационнаяБезопасность_Города" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_МероприятияИнформационнаяБезопасность_Мероприятия" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_РолиПользователей_Мероприятия" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Мероприятия_Направления" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_РолиПользователей_МероприятияИБ" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_РолиПользователей_Направления" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Пользователи_Роли" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_Пользователи_Страны" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_РолиПользователей_Пользователи" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_YP_OrgConfTESTModel.FK_РолиПользователей_Роли" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,160 @@
+﻿<Window x:Class="УП_02._01_System_for_organizing_conferences.Events.EditActivityWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences.Events"
+        mc:Ignorable="d"
+        Title="Редактирование активности" Height="650" Width="500"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Icon="/Ресурсы/icon.ico">
+
+    <Grid Background="#ABCFCE">
+        <Border Background="White" CornerRadius="10" Margin="20" Padding="30">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Заголовок -->
+                <TextBlock Text="Редактирование активности" 
+                           FontSize="20" FontWeight="Bold" 
+                           Foreground="#546F94" Margin="0,0,0,30"/>
+
+                <!-- Форма редактирования -->
+                <StackPanel Grid.Row="1">
+                    <!-- ID активности (только чтение) -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="ID активности" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtId" Grid.Row="1" 
+                                 IsReadOnly="True" Background="#F0F0F0"/>
+                    </Grid>
+
+                    <!-- Название активности -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Название активности *" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtName" Grid.Row="1" 
+                                 FontSize="14" Padding="5"/>
+                    </Grid>
+
+                    <!-- Мероприятие -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Мероприятие" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbEvent" Grid.Row="1"
+                                  DisplayMemberPath="событие"
+                                  IsEnabled="False"/>
+                    </Grid>
+
+                    <!-- Описание -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Описание активности" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtDescription" Grid.Row="1" 
+                                 Height="100" TextWrapping="Wrap" 
+                                 AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+                    </Grid>
+
+                    <!-- День -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="День мероприятия *" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbDay" Grid.Row="1" 
+                                  SelectionChanged="CmbDay_SelectionChanged"/>
+                    </Grid>
+
+                    <!-- Время начала -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Время начала *" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbStartTime" Grid.Row="1"/>
+                    </Grid>
+
+                    <!-- Продолжительность -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Продолжительность" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBlock Grid.Row="1" Text="90 минут (фиксированная)" 
+                                   FontStyle="Italic" VerticalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Модератор -->
+                    <Grid Margin="0,0,0,15">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Модератор" 
+                                   FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cmbModerator" Grid.Row="1"
+                                  DisplayMemberPath="фио"/>
+                    </Grid>
+
+                    <!-- Статус жюри -->
+                    <Border BorderBrush="#546F94" BorderThickness="1" 
+                            CornerRadius="5" Padding="10" Margin="0,0,0,15"
+                            Background="#FFF9E6">
+                        <StackPanel>
+                            <TextBlock Text="Информация о жюри" 
+                                       FontWeight="Bold" Foreground="#546F94"/>
+                            <TextBlock x:Name="txtJuryInfo" 
+                                       TextWrapping="Wrap" Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock x:Name="txtError" Foreground="Red" 
+                               Visibility="Collapsed" TextWrapping="Wrap" 
+                               Margin="0,10,0,0"/>
+                </StackPanel>
+
+                <!-- Кнопки -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                            HorizontalAlignment="Right" Margin="0,30,0,0">
+                    <Button x:Name="btnCancel" Content="Отмена" 
+                            Background="White" Foreground="#546F94"
+                            BorderBrush="#546F94" BorderThickness="1"
+                            Padding="20,10" Margin="0,0,10,0"
+                            Click="BtnCancel_Click"/>
+                    <Button x:Name="btnSave" Content="Сохранить изменения" 
+                            Background="#546F94" Foreground="White"
+                            Padding="20,10" FontWeight="Bold"
+                            Click="BtnSave_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

@@ -5,8 +5,153 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:УП_02._01_System_for_organizing_conferences"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="Главная - Конференции по информационной безопасности" 
+        Height="700" Width="1000"
+        FontFamily="Comic Sans MS"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Ресурсы/icon.ico">
+    
+    <Grid Background="#ABCFCE">
+        <!-- Верхняя панель -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <Border Grid.Row="0" Background="#546F94" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Логотип -->
+                <Image Grid.Column="0" Source="/Ресурсы/logo.png" 
+                       Height="40" Width="40" VerticalAlignment="Center"/>
+
+                <!-- Название системы -->
+                <TextBlock Grid.Column="1" Text="Система организации конференций по информационной безопасности" 
+                           Foreground="White" FontSize="18" FontWeight="Bold"
+                           VerticalAlignment="Center" Margin="20,0"/>
+
+                <!-- Информация о пользователе -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock x:Name="txtUserInfo" Foreground="White" 
+                               VerticalAlignment="Center" Margin="0,0,20,0"/>
+                    <Button x:Name="btnLoginLogout" Content="Войти" 
+                            Background="White" Foreground="#546F94"
+                            Padding="15,5" Click="BtnLoginLogout_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Основное содержимое -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Панель фильтров -->
+            <Border Grid.Row="0" Background="White" CornerRadius="5" 
+                    Padding="15" Margin="0,0,0,20">
+                <StackPanel>
+                    <TextBlock Text="Фильтрация мероприятий" 
+                               FontSize="16" FontWeight="Bold" 
+                               Foreground="#546F94" Margin="0,0,0,10"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Направление:" 
+                                   VerticalAlignment="Center" Margin="0,0,10,0"/>
+                        <ComboBox x:Name="cmbDirection" Grid.Column="1" 
+                                  DisplayMemberPath="направление"
+                                  SelectionChanged="CmbDirection_SelectionChanged"/>
+
+                        <TextBlock Grid.Column="2" Text="Дата:" 
+                                   VerticalAlignment="Center" Margin="20,0,10,0"/>
+                        <DatePicker x:Name="dpDate" Grid.Column="3" 
+                                    SelectedDateChanged="DpDate_SelectedDateChanged"/>
+
+                        <TextBlock x:Name="txtEventCount" Grid.Column="4" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Right"
+                                   Margin="0,0,10,0"/>
+
+                        <Button x:Name="btnClearFilters" Grid.Column="5" 
+                                Content="Сбросить" Background="#546F94" 
+                                Foreground="White" Padding="15,5"
+                                Click="BtnClearFilters_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- Список мероприятий -->
+            <Border Grid.Row="1" Background="White" CornerRadius="5" Padding="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Предстоящие мероприятия" 
+                               FontSize="16" FontWeight="Bold" 
+                               Foreground="#546F94" Margin="0,0,0,10"/>
+
+                    <ListView x:Name="lvEvents" Grid.Row="1" 
+                              SelectionChanged="LvEvents_SelectionChanged">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Лого" Width="60">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Логотип}" 
+                                                   Height="40" Width="40" 
+                                                   Stretch="Uniform"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Название" 
+                                                DisplayMemberBinding="{Binding событие}" 
+                                                Width="250"/>
+                                <GridViewColumn Header="Направление" 
+                                                DisplayMemberBinding="{Binding Направление.направление}" 
+                                                Width="150"/>
+                                <GridViewColumn Header="Дата" 
+                                                DisplayMemberBinding="{Binding дата, StringFormat='dd.MM.yyyy'}" 
+                                                Width="100"/>
+                                <GridViewColumn Header="Город" 
+                                                DisplayMemberBinding="{Binding Города.город}" 
+                                                Width="150"/>
+                                <GridViewColumn Header="Длительность" 
+                                                DisplayMemberBinding="{Binding дни, StringFormat='${0} дней'}"
+                                                Width="100"/>
+                                <GridViewColumn Header="" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button Content="Подробнее" 
+                                                    Background="#546F94" 
+                                                    Foreground="White"
+                                                    Padding="10,5"
+                                                    Tag="{Binding ID_событие}"
+                                                    Click="BtnDetails_Click"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
